@@ -10,10 +10,39 @@ class FriendController < ApplicationController
   def post
     user_id = params[:user_id]
 		friend_id = params[:friend_id]
-    Friendship.create(user_id: user_id, friend_id: friend_id)
+    friendship = Friendship.where(user_id: user_id, friend_id: friend_id).first
+    received_friendship = Friendship.where(friend_id: user_id, user_id: friend_id).first
+    if friendship.nil? and received_friendship.nil?
+      Friendship.create(user_id: user_id, friend_id: friend_id)
+    elsif not friendship.nil? and not friendship.is_accepted
+      friendship.is_pending = true
+      friendship.is_accepted = false
+      friendship.save
+    end
+		redirect_to '/friend'
   end
 
   def create
-    
+    user_id = params[:user_id]
+		friend_id = params[:friend_id]
+    friendship = Friendship.where(user_id: user_id, friend_id: friend_id).first
+    if not friendship.nil?
+      friendship.is_pending = false
+      friendship.is_accepted = true
+      friendship.save
+    end
+		redirect_to :back
+  end
+
+  def destroy
+    user_id = params[:user_id]
+		friend_id = params[:friend_id]
+    friendship = Friendship.where(user_id: user_id, friend_id: friend_id).first
+    if not friendship.nil?
+      friendship.is_pending = false
+      friendship.is_accepted = false
+      friendship.save
+    end
+		redirect_to '/friend'
   end
 end

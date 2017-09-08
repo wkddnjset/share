@@ -10,5 +10,5 @@ class User < ApplicationRecord
   has_many :active_friends, -> { where(friendships: { is_pending: false, is_accepted: true }) }, through: :friendships, source: :friend
   has_many :received_friends, -> { where(friendships: { is_pending: false, is_accepted: true }) }, through: :received_friendships, source: :user
   has_many :pending_friends, -> { where(friendships: { is_pending: true, is_accepted: false }) }, through: :friendships, source: :friend
-  has_many :requested_friendships, -> { where(friendships: { is_pending: true, is_accepted: false }) }, through: :received_friendships, source: :user
+  has_many :requested_friends, -> { where(friendships: { is_pending: true, is_accepted: false }) }, through: :received_friendships, source: :user
 end

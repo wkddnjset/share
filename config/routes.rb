@@ -10,8 +10,10 @@ Rails.application.routes.draw do
   get '/friend/show/:id' => 'friendt#show'
   get '/group/show/:id' => 'group#show'
 
-  post '/event/creat' => 'event#create'
+  post '/event/create' => 'event#create'
   post '/friend/create' => 'friend#create'
   post '/group/create' => 'group#create'
 
+  post '/friend/post' => 'friend#post'
+  delete '/friend/destroy' => 'friend#destroy'
 end
