@@ -1,1 +1,10 @@
-friend_index
+<% @users.each do |u| %>
+  <div style="weight: bold"><%= u.name %>, <%= u.id %></div>
+  <% u.active_friends.each do |f| %>
+		<%= f.name %>, <%= f.id %>
+	<% end %>
+  <% u.received_friends.each do |f| %>
+		<%= f.name %>, <%= f.id %>
+	<% end %>
+	------------------------
+<% end %>

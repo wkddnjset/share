@@ -29,12 +29,16 @@ ActiveRecord::Schema.define(version: 20170908155011) do
   end
 
   create_table "friendships", force: :cascade do |t|
-    t.integer  "friend_from_id", default: 0, null: false
-    t.integer  "friend_to_id",   default: 0, null: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.index ["friend_from_id"], name: "index_friendships_on_friend_from_id"
-    t.index ["friend_to_id"], name: "index_friendships_on_friend_to_id"
+    t.integer  "user_id",     default: 0,     null: false
+    t.integer  "friend_id",   default: 0,     null: false
+    t.boolean  "is_pending",  default: true,  null: false
+    t.boolean  "is_accepted", default: false, null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.index ["friend_id"], name: "index_friendships_on_friend_id"
+    t.index ["is_accepted"], name: "index_friendships_on_is_accepted"
+    t.index ["is_pending"], name: "index_friendships_on_is_pending"
+    t.index ["user_id"], name: "index_friendships_on_user_id"
   end
 
   create_table "groups", force: :cascade do |t|
