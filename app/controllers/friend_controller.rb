@@ -12,7 +12,7 @@ class FriendController < ApplicationController
 		friend_id = params[:friend_id]
     friendship = Friendship.where(user_id: user_id, friend_id: friend_id).first
     received_friendship = Friendship.where(friend_id: user_id, user_id: friend_id).first
-    if friendship.nil? and received_friendship.nil?
+    if friendship.nil? and (received_friendship.nil? or (not received_friendship.is_accepted and not received_friendship.is_pending))
       Friendship.create(user_id: user_id, friend_id: friend_id)
     elsif not friendship.nil? and not friendship.is_accepted
       friendship.is_pending = true
