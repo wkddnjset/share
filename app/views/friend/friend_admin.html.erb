@@ -1,5 +1,7 @@
 <% @users.each do |u| %>
-  <div style="font-size: 20pt"><%= u.name %>, <%= u.id %>, 총 숫자 : <%= u.friendships.count + u.received_friendships.count %></div>
+  <div>
+    <div style="font-size: 20pt"><%= image_tag(u.image_url, height: '50', width: '50') %> <%= u.name %>, <%= u.id %>, 총 숫자 : <%= u.friendships.count + u.received_friendships.count %></div>
+  </div>
   --------- 나의 친구신청 받아준 친구들<br>
   <div>
     <% if u.active_friends.count == 0 %>
