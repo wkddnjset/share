@@ -39,12 +39,12 @@
     <% else %>
       <% u.requested_friends.each do |f| %>
         <%= f.name %>, <%= f.id %>
-        <%= form_tag("/friend/create", method: "post") do %>
+        <%= form_tag("/friend/create_admin", method: "post") do %>
           <%= hidden_field_tag(:user_id, f.id) %>
           <%= hidden_field_tag(:friend_id, u.id) %>
           <%= submit_tag('수락하기') %> 
         <% end %>
-        <%= form_tag("/friend/destroy", method: "delete") do %>
+        <%= form_tag("/friend/destroy_admin", method: "delete") do %>
           <%= hidden_field_tag(:user_id, f.id) %>
           <%= hidden_field_tag(:friend_id, u.id) %>
           <%= submit_tag('거절하기') %> 
@@ -56,7 +56,7 @@
 	------------------------
 <% end %>
 
-<%= form_tag("/friend/post", method: "post") do %>
+<%= form_tag("/friend/post_admin", method: "post") do %>
   <div>친구신청 하는사람 : <%= text_field_tag(:user_id) %></div>
   <div>친구신청 받는사람 : <%= text_field_tag(:friend_id) %></div>
   <%= submit_tag("친구신청") %>

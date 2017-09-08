@@ -1,1 +1,36 @@
-friend_index
+<div>
+  <% if current_user.active_friends.count + current_user.received_friends.count == 0 %>
+    친구가 없어요!
+  <% else %>
+    <% current_user.active_friends.each do |f| %>
+      <%= f.name %>, <%= f.id %> 
+    <% end %>
+    <% current_user.received_friends.each do |f| %>
+      <%= f.name %>, <%= f.id %> 
+    <% end %>
+  <% end %>
+</div>
+<div>
+  <% if current_user.pending_friends.count > 0 %>
+    대기중인 나의 친구신청<br>
+    <% current_user.pending_friends.each do |f| %>
+      <%= f.name %>, <%= f.id %> 
+    <% end %>
+  <% end %>
+</div>
+<div>
+  <% if current_user.requested_friends.count > 0 %>
+    나에게 온 친구신청<br>
+    <% current_user.requested_friends.each do |f| %>
+      <%= f.name %>, <%= f.id %>
+      <%= form_tag("/friend/create", method: "post") do %>
+        <%= hidden_field_tag(:friend_id, f.id) %>
+        <%= submit_tag('수락하기') %> 
+      <% end %>
+      <%= form_tag("/friend/destroy", method: "delete") do %>
+        <%= hidden_field_tag(:friend_id, f.id) %>
+        <%= submit_tag('거절하기') %> 
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
