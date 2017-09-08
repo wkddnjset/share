@@ -22,10 +22,8 @@ ActiveRecord::Schema.define(version: 20170908155011) do
   end
 
   create_table "events", force: :cascade do |t|
-    t.integer  "group_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["group_id"], name: "index_events_on_group_id"
   end
 
   create_table "friendships", force: :cascade do |t|
@@ -38,10 +36,8 @@ ActiveRecord::Schema.define(version: 20170908155011) do
   end
 
   create_table "groups", force: :cascade do |t|
-    t.string   "name",       default: "", null: false
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-    t.index ["name"], name: "index_groups_on_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "memberships", force: :cascade do |t|
@@ -54,12 +50,8 @@ ActiveRecord::Schema.define(version: 20170908155011) do
   end
 
   create_table "transactions", force: :cascade do |t|
-    t.integer  "user_id",    default: 0, null: false
-    t.integer  "event_id",   default: 0, null: false
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.index ["event_id"], name: "index_transactions_on_event_id"
-    t.index ["user_id"], name: "index_transactions_on_user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -73,9 +65,13 @@ ActiveRecord::Schema.define(version: 20170908155011) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.string   "name",                   default: "", null: false
+    t.string   "image_url",              default: "", null: false
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["image_url"], name: "index_users_on_image_url"
+    t.index ["name"], name: "index_users_on_name"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
