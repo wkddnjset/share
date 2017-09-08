@@ -4,8 +4,7 @@ class FriendController < ApplicationController
   end
 
   def show
-    friend_id = params[:id]
-    @friend = Friend.find(friend_id)
+    @friend_id = params[:id]
   end
 
   def create

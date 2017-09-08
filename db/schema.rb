@@ -22,8 +22,10 @@ ActiveRecord::Schema.define(version: 20170908155011) do
   end
 
   create_table "events", force: :cascade do |t|
+    t.integer  "group_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_events_on_group_id"
   end
 
   create_table "friendships", force: :cascade do |t|
@@ -36,8 +38,10 @@ ActiveRecord::Schema.define(version: 20170908155011) do
   end
 
   create_table "groups", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name",       default: "", null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.index ["name"], name: "index_groups_on_name"
   end
 
   create_table "memberships", force: :cascade do |t|
@@ -50,8 +54,12 @@ ActiveRecord::Schema.define(version: 20170908155011) do
   end
 
   create_table "transactions", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "user_id",    default: 0, null: false
+    t.integer  "event_id",   default: 0, null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.index ["event_id"], name: "index_transactions_on_event_id"
+    t.index ["user_id"], name: "index_transactions_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
