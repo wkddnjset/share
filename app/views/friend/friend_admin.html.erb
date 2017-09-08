@@ -1,0 +1,61 @@
+<% @users.each do |u| %>
+  <div style="font-size: 20pt"><%= u.name %>, <%= u.id %>, 총 숫자 : <%= u.friendships.count + u.received_friendships.count %></div>
+  --------- 나의 친구신청 받아준 친구들<br>
+  <div>
+    <% if u.active_friends.count == 0 %>
+      없음
+    <% else %>
+      <% u.active_friends.each do |f| %>
+        <%= f.name %>, <%= f.id %> 
+      <% end %>
+    <% end %>
+  </div>
+  --------- 내가 친구신청 받아준 친구들<br>
+  <div>
+    <% if u.received_friends.count == 0 %>
+      없음
+    <% else %>
+      <% u.received_friends.each do |f| %>
+        <%= f.name %>, <%= f.id %> 
+      <% end %>
+    <% end %>
+  </div>
+  <div>
+    --------- 내가한 친구신청<br>
+    <% if u.pending_friends.count == 0 %>
+      없음
+    <% else %>
+      <% u.pending_friends.each do |f| %>
+        <%= f.name %>, <%= f.id %> 
+      <% end %>
+    <% end %>
+  </div>
+	<div>
+    --------- 들어온 친구신청<br>
+    <% if u.requested_friends.count == 0 %>
+      없음
+    <% else %>
+      <% u.requested_friends.each do |f| %>
+        <%= f.name %>, <%= f.id %>
+        <%= form_tag("/friend/create", method: "post") do %>
+          <%= hidden_field_tag(:user_id, f.id) %>
+          <%= hidden_field_tag(:friend_id, u.id) %>
+          <%= submit_tag('수락하기') %> 
+        <% end %>
+        <%= form_tag("/friend/destroy", method: "delete") do %>
+          <%= hidden_field_tag(:user_id, f.id) %>
+          <%= hidden_field_tag(:friend_id, u.id) %>
+          <%= submit_tag('거절하기') %> 
+        <% end %>
+        ------<br>
+	 	  <% end %>
+    <% end %>
+	</div>
+	------------------------
+<% end %>
+
+<%= form_tag("/friend/post", method: "post") do %>
+  <div>친구신청 하는사람 : <%= text_field_tag(:user_id) %></div>
+  <div>친구신청 받는사람 : <%= text_field_tag(:friend_id) %></div>
+  <%= submit_tag("친구신청") %>
+<% end %>

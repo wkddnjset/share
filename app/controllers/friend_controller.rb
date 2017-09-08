@@ -3,6 +3,10 @@ class FriendController < ApplicationController
     @users = User.all
   end
 
+  def friend_admin
+    @users = User.all
+  end
+
   def show
     @friend_id = params[:id]
   end
@@ -19,7 +23,7 @@ class FriendController < ApplicationController
       friendship.is_accepted = false
       friendship.save
     end
-		redirect_to '/friend'
+		redirect_to '/friend_admin'
   end
 
   def create
@@ -31,7 +35,7 @@ class FriendController < ApplicationController
       friendship.is_accepted = true
       friendship.save
     end
-		redirect_to :back
+		redirect_to '/friend_admin'
   end
 
   def destroy
@@ -43,6 +47,6 @@ class FriendController < ApplicationController
       friendship.is_accepted = false
       friendship.save
     end
-		redirect_to '/friend'
+		redirect_to '/friend_admin'
   end
 end

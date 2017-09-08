@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   get '/event' => 'event#index'
   get '/friend' => 'friend#index'
+  get '/friend_admin' => 'friend#friend_admin'
   get '/group' => 'group#index'
 
   get '/event/show/:id' => 'event#show'
