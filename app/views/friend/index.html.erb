@@ -3,7 +3,7 @@
     친구가 없어요!
   <% else %>
     <% current_user.active_friends.each do |f| %>
-      <%= f.name %>, <%= f.id %> 
+      <%= image_tag(f.image_url, height: '50', width: '50') %> <%= f.name %>, <%= f.id %> 
     <% end %>
     <% current_user.received_friends.each do |f| %>
       <%= f.name %>, <%= f.id %> 
